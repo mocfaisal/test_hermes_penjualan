@@ -103,7 +103,7 @@
                                 <div class="d-flex justify-content-between mb-4">
                                     <h5 class="mb-0 me-4">Subtotal:</h5>
                                     <p class="mb-0">
-                                        {{ $item->currency  . ' ' . number_format($this->dataCart->total) }}
+                                        {{ $item->currency . ' ' . number_format($this->dataCart->total) }}
                                     </p>
                                 </div>
                                 {{-- <div class="d-flex justify-content-between">
@@ -117,7 +117,7 @@
                             <div class="border-top border-bottom d-flex justify-content-between mb-4 py-4">
                                 <h5 class="mb-0 me-4 ps-4">Total</h5>
                                 <p class="mb-0 pe-4">
-                                    {{ $item->currency  . ' ' . number_format($this->dataCart->total) }}
+                                    {{ $item->currency . ' ' . number_format($this->dataCart->total) }}
                                 </p>
                             </div>
                             <a class="btn border-secondary rounded-pill text-primary text-uppercase mb-4 ms-4 px-4 py-3"

@@ -64,6 +64,7 @@
                                     {{ $user_name_limit }}
                                 </a>
                                 <div class="dropdown-menu bg-secondary rounded-0 m-0">
+                                    <a class="dropdown-item" href="{{ route('report.index') }}" wire:navigate>History Transaction</a>
                                     <a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a>
                                 </div>
                             </div>

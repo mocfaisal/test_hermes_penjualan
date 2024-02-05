@@ -97,6 +97,12 @@ Route::group(['namespace' => 'App'], function () {
                             Route::get('/', Index::class)->name('checkout.index');
                         });
                     });
+
+                    Route::group(['namespace' => 'Report'], function () {
+                        Route::prefix('report')->group(function () {
+                            Route::get('/', Index::class)->name('report.index');
+                        });
+                    });
                 });
             });
 
