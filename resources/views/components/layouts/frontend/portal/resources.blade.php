@@ -17,5 +17,23 @@
                 });
             }
         }
+
+        function popResult2(response) {
+            let res = response.result;
+
+            if (res.success) {
+                if (res.uri) {
+                        window.location.href = res.uri;
+                    } else {
+                        window.location.reload();
+                    }
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: res.msg,
+                    icon: 'error',
+                });
+            }
+        }
     </script>
 @endsection

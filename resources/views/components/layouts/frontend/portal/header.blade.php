@@ -28,6 +28,9 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/frontend/portal') }}/css/style.css" rel="stylesheet">
+
+    <link data-navigate-once rel="stylesheet" href="{{ asset('assets/backend') }}/extensions/sweetalert2/sweetalert2.min.css">
+    <script src="{{ asset('assets/backend') }}/extensions/sweetalert2/sweetalert2.min.js" data-navigate-once></script>
 </head>
 
 <body>

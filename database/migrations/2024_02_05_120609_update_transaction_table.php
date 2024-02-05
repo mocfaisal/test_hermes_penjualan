@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::table('transaction', function (Blueprint $table) {
-            $table->enum('status', ['pending', 'success', 'failed'])->default('pending')->after('document_number');
+            $table->enum('status', ['pending', 'complete', 'failed'])->default('pending')->after('document_number');
             $table->integer('id_user')->after('tgl_trx');
         });
     }

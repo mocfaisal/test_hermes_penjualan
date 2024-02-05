@@ -7,7 +7,8 @@
     $user_name = $user_fullname;
     $user_name_limit = Str::limit($user_name, 10, '...');
 
-    $count_item_ = session()->get('count_cart_item') ?? 0;
+    // $count_item_ = session()->get('count_cart_item') ?? 0;
+    $count_item_ = App\Models\Table\transaction::getCountCart($user_id);
     $count_item = $count_item_ >= 9 ? '9+' : $count_item_;
 
     $is_login = !empty($user_id) ? true : false;
@@ -49,7 +50,7 @@
 
                 <div class="d-flex m-3 me-0">
                     <div class="navbar-nav mx-auto">
-                        <a class="position-relative my-auto me-4" href="#"> <i
+                        <a class="position-relative my-auto me-4" href="{{ route('cart.index') }}" wire:naviagate> <i
                                 class="fa fa-shopping-bag fa-2x"></i>
                             <span
                                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
@@ -67,7 +68,8 @@
                                 </div>
                             </div>
                         @else
-                            <a class="my-auto" title="Login" href="{{ route('frontend.auth.login') }}"> <i class="fas fa-user fa-2x"></i></a>
+                            <a class="my-auto" title="Login" href="{{ route('frontend.auth.login') }}"> <i
+                                    class="fas fa-user fa-2x"></i></a>
                         @endif
 
                     </div>

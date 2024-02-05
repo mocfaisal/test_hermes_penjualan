@@ -84,6 +84,29 @@ Route::group(['namespace' => 'App'], function () {
                 });
             });
 
+            Route::group(['namespace' => 'Transaction'], function () {
+                Route::prefix('transaction')->group(function () {
+                    Route::group(['namespace' => 'Cart'], function () {
+                        Route::prefix('cart')->group(function () {
+                            Route::get('/', Index::class)->name('cart.index');
+                        });
+                    });
+
+                    Route::group(['namespace' => 'Checkout'], function () {
+                        Route::prefix('checkout')->group(function () {
+                            Route::get('/', Index::class)->name('checkout.index');
+                        });
+                    });
+                });
+            });
+
+            Route::group(['namespace' => 'Product'], function () {
+                Route::prefix('product')->group(function () {
+                    Route::get('/', Index::class)->name('product.index');
+                    Route::get('/detail/{id_product}', Detail::class)->name('product.detail');
+                });
+            });
+
             Route::group(['namespace' => 'Auth'], function () {
                 Route::prefix('auth')->group(function () {
                     Route::get('/logout', 'Login@logout')->name('frontend.auth.logout');

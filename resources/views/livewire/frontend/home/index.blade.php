@@ -21,7 +21,7 @@
                                     <li class="nav-item">
                                         <a class="d-flex bg-light rounded-pill m-1 py-1" data-bs-toggle="pill"
                                             href="#tab-2">
-                                            <span class="text-dark" style="width: 130px;">Vegetables</span>
+                                            <span class="text-dark" style="width: 130px;">Fabric Care</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -48,9 +48,60 @@
                                                         alt="">
                                                 </div>
                                                 <div class="bg-secondary position-absolute rounded px-3 py-1 text-white"
-                                                    style="top: 10px; left: 10px;">Product Categories</div>
+                                                    style="top: 10px; left: 10px;">Fabric Care</div>
                                                 <div class="border-secondary border-top-0 rounded-bottom border p-4">
-                                                    <h4>{{ $item->product_name }}</h4>
+                                                    <h4>
+                                                        <a href="{{ route('product.detail', ['id_product' => $item->id]) }}"
+                                                            wire:navigate>
+                                                            {{ $item->product_name }}
+                                                        </a>
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
+                                                        eiusmod te incididunt</p>
+                                                    <div class="d-flex justify-content-start flex-lg-wrap">
+                                                        <p class="text-dark fs-5 fw-bold mb-0">
+                                                            {{ $item->currency . ' ' . number_format($item->price) }}
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-center flex-lg-wrap">
+                                                        <a class="btn border-secondary rounded-pill text-primary border px-3"
+                                                            wire:click="addCart({{ $item->id }})"><i
+                                                                class="fa fa-shopping-bag text-primary me-2"></i> Add to
+                                                            cart</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade show p-0" id="tab-2">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="row g-4">
+
+                                    @foreach ($list_product as $item)
+                                        <div class="col-md-6 col-lg-4 col-xl-3" wire:key="{{ $item->id }}">
+                                            <div class="position-relative fruite-item rounded">
+                                                <div class="fruite-img">
+                                                    <img class="img-fluid w-100 rounded-top"
+                                                        src="{{ asset('assets/frontend/portal') }}/img/fruite-item-5.jpg"
+                                                        alt="">
+                                                </div>
+                                                <div class="bg-secondary position-absolute rounded px-3 py-1 text-white"
+                                                    style="top: 10px; left: 10px;">Fabric Care</div>
+                                                <div class="border-secondary border-top-0 rounded-bottom border p-4">
+                                                    <h4>
+                                                        <a href="{{ route('product.detail', ['id_product' => $item->id]) }}"
+                                                            wire:navigate>
+                                                            {{ $item->product_name }}
+                                                        </a>
+                                                    </h4>
                                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
                                                         eiusmod te incididunt</p>
                                                     <div class="d-flex justify-content-start flex-lg-wrap">
@@ -85,11 +136,11 @@
 @push('scripts')
     <script>
         document.addEventListener('livewire:initialized', () => {
-            @this.on('showResult', (response) => popResult(response));
+            @this.on('showResult', (response) => popResult2(response));
         });
 
         document.addEventListener('livewire:navigated', () => {
-            Livewire.on('showResult', (response) => popResult(response));
+            Livewire.on('showResult', (response) => popResult2(response));
         });
     </script>
 @endpush
