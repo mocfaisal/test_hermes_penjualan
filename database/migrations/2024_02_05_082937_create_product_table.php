@@ -13,9 +13,9 @@ return new class extends Migration {
             $table->id();
             $table->string('product_name', 30);
             $table->string('product_code', 18)->unique();
-            $table->double('price', 6, 2)->comment('Harga Jual Produk dalam satuan Currency');
+            $table->double('price')->comment('Harga Jual Produk dalam satuan Currency');
             $table->string('currency', 5)->comment('Satuan Harga Jual');
-            $table->double('discount', 6, 2)->comment('Diskon dalam persen');
+            $table->double('discount', 6)->comment('Diskon dalam persen');
             $table->string('dimension', 50)->comment('Dimensi Produk');
             $table->string('unit', 5)->comment('Satuan Jual Produk');
             $table->timestamps();
