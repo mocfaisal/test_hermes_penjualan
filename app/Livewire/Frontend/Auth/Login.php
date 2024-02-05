@@ -39,7 +39,7 @@ class Login extends Component {
         //     'password' => 'required',
         // ]);
 
-        $is_auth = Auth::attempt(['email' => $email, 'password' => $password]);
+        $is_auth = Auth::attempt(['email' => $email, 'password' => $password, 'type' => 2]);
 
         if ($is_auth) {
             $user_data = Auth::user();

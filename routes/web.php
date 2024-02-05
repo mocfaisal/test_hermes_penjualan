@@ -17,72 +17,20 @@ Route::get('/', function () {
     return redirect()->route('home');
 })->name('frontend.home');
 
+Route::get('/admin', function () {
+    return redirect()->route('backend.home');
+});
+
 Route::group(['namespace' => 'App'], function () {
-
-
     Route::group(['namespace' => 'Livewire'], function () {
-
-        // Route::group(['middleware' => ['auth', 'auth.basic'], 'namespace' => 'Backend'], function () {
-        //     Route::group(['namespace' => 'Admin'], function () {
-
-        //         Route::prefix('admin')->group(function () {
-        //             Route::group(['namespace' => 'Home'], function () {
-        //                 Route::get('/', Index::class)->name('backend.admin.home');
-        //             });
-
-        //             Route::group(['namespace' => 'Settings'], function () {
-        //                 Route::prefix('settings')->group(function () {
-        //                     Route::group(['namespace' => 'Menu'], function () {
-        //                         Route::prefix('menu')->group(function () {
-        //                             Route::get('/', Index::class)->name('backend.admin.settings.menu');
-        //                             Route::get('/getData', 'Index@getData')->name('backend.admin.settings.menu.data');
-        //                             Route::post('/update', 'Index@save')->name('backend.admin.settings.menu.update');
-        //                         });
-        //                     });
-        //                 });
-        //             });
-        //         });
-        //     });
-
-        //     Route::group(['namespace' => 'Master'], function () {
-
-        //         Route::prefix('master')->group(function () {
-
-        //             Route::group(['namespace' => 'Inventory'], function () {
-        //                 Route::prefix('inventory')->group(function () {
-        //                     Route::get('/', Index::class)->name('backend.master.inventory');
-        //                     Route::get('/create', Create::class)->name('backend.master.inventory.create');
-        //                     // Route::get('/edit/{id}', Edit::class)->name('backend.master.inventory.edit');
-
-        //                     Route::post('/table', 'Index@getData')->name('backend.master.inventory.getData.table');
-        //                 });
-        //             });
-        //         });
-        //     });
-
-        //     Route::group(['namespace' => 'Transaksi'], function () {
-
-        //         Route::prefix('transaksi')->group(function () {
-
-        //             Route::group(['namespace' => 'Penjualan'], function () {
-        //                 Route::prefix('penjualan')->group(function () {
-        //                     Route::get('/', Index::class)->name('backend.transaksi.penjualan');
-        //                     Route::get('/create', Create::class)->name('backend.transaksi.penjualan.create');
-        //                     // Route::get('/edit/{id}', Edit::class)->name('backend.transaksi.penjualan.edit');
-
-        //                     Route::post('/table', 'Index@getData')->name('backend.transaksi.penjualan.getData.table');
-        //                 });
-        //             });
-        //         });
-        //     });
-        // });
-
         Route::group(['namespace' => 'Frontend'], function () {
             Route::group(['namespace' => 'Home'], function () {
                 Route::prefix('home')->group(function () {
                     Route::get('/', Index::class)->name('home');
                 });
             });
+
+
 
             Route::group(['namespace' => 'Transaction'], function () {
                 Route::prefix('transaction')->group(function () {
@@ -136,6 +84,41 @@ Route::group(['namespace' => 'App'], function () {
                 });
             });
         });
+
+        Route::group(['namespace' => 'Backend'], function () {
+            Route::prefix('admin')->group(function () {
+                Route::middleware('auth.admin')->group(function () {
+                    Route::group(['namespace' => 'Home'], function () {
+                        Route::prefix('home')->group(function () {
+                            Route::get('/', Index::class)->name('backend.home');
+                        });
+                    });
+
+                    Route::group(['namespace' => 'Master'], function () {
+                        Route::prefix('master')->group(function () {
+                            Route::group(['namespace' => 'Product'], function () {
+                                Route::prefix('product')->group(function () {
+                                    Route::get('/', Index::class)->name('backend.admin.master.product');
+                                    Route::post('/table', 'Index@getData')->name('backend.admin.master.product.getData.table');
+                                });
+                            });
+                        });
+                    });
+                });
+
+                Route::group(['namespace' => 'Auth'], function () {
+                    Route::prefix('auth')->group(function () {
+                        Route::get('/logout', 'Login@logout')->name('backend.auth.logout');
+
+                        Route::middleware('guest')->group(function () {
+                            Route::prefix('login')->group(function () {
+                                Route::get('/', Login::class)->name('backend.auth.login');
+                            });
+                        });
+                    });
+                });
+            });
+        });
     });
 });
 
@@ -147,3 +130,11 @@ Route::get('/login', function () {
 Route::get('/logout', function () {
     return redirect()->route('frontend.auth.logout');
 })->name('auth.logout');
+
+Route::get('/admin/login', function () {
+    return redirect()->route('backend.auth.login');
+});
+
+Route::get('/admin/logout', function () {
+    return redirect()->route('backend.auth.logout');
+});
