@@ -1,29 +1,6 @@
 
 @section('global.javascript.footer')
 
-    {{-- <script data-navigate-once>
-        document.addEventListener('livewire:init', () => {
-            // Runs after Livewire is loaded but before it's initialized
-            // on the page...
-            console.log('livewire before init');
-            @yield('global.livewire.js.before.init')
-        });
-
-        document.addEventListener('livewire:initialized', () => {
-            // Runs immediately after Livewire has finished initializing
-            // on the page...
-            console.log('livewire after init');
-            @yield('global.livewire.js.after.init')
-        });
-
-        document.addEventListener('livewire:load', () => {
-            console.log('livewire load js code');
-
-            @yield('global.livewire.js.load.init')
-
-        });
-    </script> --}}
-
     <script data-navigate-once>
         document.addEventListener('livewire:initialized', () => {
             // NOTE Reinitialize Sidebar
@@ -52,38 +29,6 @@
                 input: 'form-control'
             }
         });
-
-        // Choices
-        let choices = document.querySelectorAll(".choices")
-        let initChoice
-        for (let i = 0; i < choices.length; i++) {
-            if (choices[i].classList.contains("multiple-remove")) {
-                initChoice = new Choices(choices[i], {
-                    delimiter: ",",
-                    editItems: true,
-                    maxItemCount: -1,
-                    removeItemButton: true,
-                })
-            } else {
-                initChoice = new Choices(choices[i])
-            }
-        }
-
-        // Select2
-        $('.select2').select2({
-            theme: 'bootstrap-5',
-            minimumInputLength: -1,
-            allowClear: true,
-            placeholder: "Select..."
-        });
-
-        // FilePond
-        // FilePond.registerPlugin(
-        //     FilePondPluginImagePreview,
-        //     FilePondPluginImageExifOrientation,
-        //     FilePondPluginFileValidateSize,
-        //     FilePondPluginFileValidateType
-        // );
     </script>
 
     <script data-navigate-once>
@@ -92,10 +37,10 @@
 
             if (res.success) {
                 Swal.fire({
-                    title: "{{ __('custom.swal.title.success') }}",
+                    title: "Success",
                     text: res.msg,
                     icon: 'success',
-                    confirmButtonText: "{{ __('custom.swal.button.ok') }}",
+                    confirmButtonText: "OK",
                 }).then((result) => {
                     if (result.isConfirmed) {}
                     if (res.uri) {
@@ -106,7 +51,45 @@
                 });
             } else {
                 Swal.fire({
-                    title: "{{ __('custom.swal.title.error') }}",
+                    title: "Error",
+                    text: res.msg,
+                    icon: 'error',
+                });
+            }
+        }
+
+        function popResultConfirm(response) {
+            let res = response.result;
+
+            if (res.success) {
+                Swal.fire({
+                    title: "Success",
+                    text: res.msg,
+                    icon: 'success',
+                    confirmButtonText: "OK",
+                }).then((result) => {
+                    if (result.isConfirmed) {}
+
+                    Swal.fire({
+                        title: "Info",
+                        text: res.msg_confirm,
+                        icon: 'info',
+                        showDenyButton: true,
+                        confirmButtonText: "Yes",
+                        denyButtonText: "No",
+                    }).then((result2) => {
+                        if (result2.isConfirmed) {
+                            window.location.reload();
+                        } else if (result2.isDenied) {
+                            if (res.uri) {
+                                window.location.href = res.uri;
+                            }
+                        }
+                    });
+                });
+            } else {
+                Swal.fire({
+                    title: "Error",
                     text: res.msg,
                     icon: 'error',
                 });

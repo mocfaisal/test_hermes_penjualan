@@ -11,13 +11,13 @@
                         </a>
                     </div>
                     <div class="col-lg-6">
-                        <div class="position-relative mx-auto">
+                        {{-- <div class="position-relative mx-auto">
                             <input type="number" class="form-control w-100 rounded-pill border-0 px-4 py-3"
                                 placeholder="Your Email">
                             <button type="submit"
                                 class="btn btn-primary border-secondary position-absolute rounded-pill border-0 px-4 py-3 text-white"
                                 style="top: 0; right: 0;">Subscribe Now</button>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-lg-3">
                         <div class="d-flex justify-content-end pt-3">
@@ -61,7 +61,7 @@
                         <a class="btn-link" href="#">Shop details</a>
                         <a class="btn-link" href="#">Shopping Cart</a>
                         <a class="btn-link" href="#">Wishlist</a>
-                        <a class="btn-link" href="#">Order History</a>
+                        <a class="btn-link" href="{{ route('report.index') }}" wire:navigate>Order History</a>
                         <a class="btn-link" href="#">International Orders</a>
                     </div>
                 </div>

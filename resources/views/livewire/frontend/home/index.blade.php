@@ -1,3 +1,15 @@
+@php
+    $disk = 'public';
+    $file_name = '/Logo-SK.png';
+    $file_path = 'uploads/images' . $file_name;
+    $images = '';
+
+    if (Storage::disk($disk)->exists($file_path)) {
+        $url = Storage::disk($disk)->url($file_path);
+        $images = asset($url);
+    }
+@endphp
+
 <div>
     {{-- Close your eyes. Count to one. That is how long forever feels. --}}
 
@@ -43,8 +55,7 @@
                                         <div class="col-md-6 col-lg-4 col-xl-3" wire:key="{{ $item->id }}">
                                             <div class="position-relative fruite-item rounded">
                                                 <div class="fruite-img">
-                                                    <img class="img-fluid w-100 rounded-top"
-                                                        src="{{ asset('assets/frontend/portal') }}/img/fruite-item-5.jpg"
+                                                    <img class="img-fluid w-100 rounded-top" src="{{ $images }}"
                                                         alt="">
                                                 </div>
                                                 <div class="bg-secondary position-absolute rounded px-3 py-1 text-white"

@@ -42,7 +42,7 @@ class Index extends Component {
             return DataTables::of($new_data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '';
-                    $btn .= '<a href="javascript:void(0);" class="btn icon btn-primary" data-bs-tooltip="true" data-bs-title="Edit" data-bs-toggle="modal" data-bs-target="#mdl_inventory" wire:click="$dispatch(\'edit-mode\',{id: ' . $row['id'] . '})" ><i class="bi bi-pencil"></i></a>';
+                    $btn .= '<a href="javascript:void(0);" class="btn icon btn-primary" data-bs-tooltip="true" data-bs-title="Edit" data-bs-toggle="modal" data-bs-target="#mdl_product" wire:click="$dispatch(\'edit-mode\',{id: ' . $row['id'] . '})" ><i class="bi bi-pencil"></i></a>';
                     $btn .= ' | <a href="javascript:void(0);" onclick="popDelete(' . $row['id'] . ')" class="btn icon btn-danger" data-bs-title="Delete"><i class="bi bi-x"></i></a>';
                     return $btn;
                 })
@@ -57,7 +57,7 @@ class Index extends Component {
     public function destroy($id) {
         $this->skipRender();
 
-        $delete = m_product::where('created_by', $this->current_user_id)->where('id', $id)->delete();
+        $delete = m_product::where('id', $id)->delete();
 
         if ($delete) {
             $r = ['success' => true, 'msg' => 'Data berhasil dihapus!'];

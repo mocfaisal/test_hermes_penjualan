@@ -1,3 +1,15 @@
+@php
+    $disk = 'public';
+    $file_name = '/Logo-SK.png';
+    $file_path = 'uploads/images' . $file_name;
+    $images = '';
+
+    if (Storage::disk($disk)->exists($file_path)) {
+        $url = Storage::disk($disk)->url($file_path);
+        $images = asset($url);
+    }
+@endphp
+
 <div>
     {{-- Do your work, then step back. --}}
 
@@ -9,10 +21,7 @@
                     <div class="row g-4">
                         <div class="col-lg-6">
                             <div class="rounded border">
-                                <a href="#">
-                                    <img class="img-fluid rounded"
-                                        src="{{ asset('assets/frontend/portal') }}/img/single-item.jpg" alt="Image">
-                                </a>
+                                <img class="img-fluid rounded" src="{{ $images }}" alt="Image">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -82,6 +91,16 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <p class="mb-0">{{ $data_product->dimension }}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    class="row bg-light align-items-center justify-content-center py-2 text-center">
+                                                    <div class="col-6">
+                                                        <p class="mb-0">Price Unit</p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <p class="mb-0">{{ $data_product->unit }}</p>
                                                     </div>
                                                 </div>
                                             </div>

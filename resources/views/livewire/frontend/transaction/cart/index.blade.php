@@ -1,15 +1,13 @@
 @php
-
     $disk = 'public';
     $file_name = '/Logo-SK.png';
-    $file_path = 'storage/uploads/images' . $file_name;
+    $file_path = 'uploads/images' . $file_name;
     $images = '';
 
     if (Storage::disk($disk)->exists($file_path)) {
         $url = Storage::disk($disk)->url($file_path);
         $images = asset($url);
     }
-
 @endphp
 
 <div>
@@ -45,7 +43,12 @@
                                             </div>
                                         </th>
                                         <td>
-                                            <p class="mb-0 mt-4">{{ $item->product_name }}</p>
+                                            <p class="mb-0 mt-4">
+                                                <a href="{{ route('product.detail', ['id_product' => $item->id]) }}"
+                                                    wire:navigate>
+                                                    {{ $item->product_name_final }}
+                                                </a>
+                                            </p>
                                         </td>
                                         <td>
                                             <p class="mb-0 mt-4">

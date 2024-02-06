@@ -1,15 +1,13 @@
 @php
-
     $disk = 'public';
     $file_name = '/Logo-SK.png';
-    $file_path = 'storage/uploads/images' . $file_name;
+    $file_path = 'uploads/images' . $file_name;
     $images = '';
 
     if (Storage::disk($disk)->exists($file_path)) {
         $url = Storage::disk($disk)->url($file_path);
         $images = asset($url);
     }
-
 @endphp
 
 <div>
@@ -43,7 +41,7 @@
                                                 </div>
                                             </th>
                                             <td>
-                                                <p class="mb-0 mt-4">{{ $item->product_name }}</p>
+                                                <p class="mb-0 mt-4">{{ $item->product_name_final }}</p>
                                             </td>
                                             <td>
                                                 <p class="mb-0 mt-4">
@@ -149,11 +147,11 @@
 @push('scripts')
     <script>
         document.addEventListener('livewire:initialized', () => {
-            @this.on('showResult', (response) => popResult2(response));
+            @this.on('showResult', (response) => popResult3(response));
         });
 
         document.addEventListener('livewire:navigated', () => {
-            Livewire.on('showResult', (response) => popResult2(response));
+            Livewire.on('showResult', (response) => popResult3(response));
         });
     </script>
 @endpush

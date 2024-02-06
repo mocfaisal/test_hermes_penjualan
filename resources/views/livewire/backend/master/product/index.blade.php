@@ -11,7 +11,7 @@
             </div>
             <div class="float-end">
                 <div class="buttons">
-                    <a class="btn icon icon-left btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_inventory"><i
+                    <a class="btn icon icon-left btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_product"><i
                             class="bi bi-plus"></i> Add Data</a>
                 </div>
             </div>
@@ -27,7 +27,7 @@
 
     </div>
 
-    {{-- <livewire:backend.master.inventory.create> --}}
+    <livewire:backend.master.product.create>
 
 </div>
 
@@ -55,7 +55,8 @@
         // Function Declare
         async function initTableElem() {
             const field_table = $('#field_table');
-            const txt = '<table id="tbl_list" class="table-striped table-hover table table" style="width: 100%;"> <thead> <tr> <td style="vertical-align: middle; text-align: center;">No</td> <td style="vertical-align: middle; text-align: center;">Name</td> <td style="vertical-align: middle; text-align: center;">Code</td> <td style="vertical-align: middle; text-align: center;">Currency</td> <td style="vertical-align: middle; text-align: center;">Price</td> <td style="vertical-align: middle; text-align: center;">Unit</td> <td style="vertical-align: middle; text-align: center;">Discount</td> <td style="vertical-align: middle; text-align: center;">DImension</td> <td style="vertical-align: middle; text-align: center;">Action</td> </tr> </thead> </table>';
+            const txt =
+                '<table id="tbl_list" class="table-striped table-hover table table" style="width: 100%;"> <thead> <tr> <td style="vertical-align: middle; text-align: center;">No</td> <td style="vertical-align: middle; text-align: center;">Name</td> <td style="vertical-align: middle; text-align: center;">Code</td> <td style="vertical-align: middle; text-align: center;">Currency</td> <td style="vertical-align: middle; text-align: center;">Price</td> <td style="vertical-align: middle; text-align: center;">Unit</td> <td style="vertical-align: middle; text-align: center;">Discount</td> <td style="vertical-align: middle; text-align: center;">DImension</td> <td style="vertical-align: middle; text-align: center;">Action</td> </tr> </thead> </table>';
             field_table.html(txt);
             return true;
         }
@@ -135,26 +136,13 @@
 
         function popDelete(id) {
             Swal.fire({
-                title: "{{ __('custom.swal.title.confirm', ['first' => 'delete', 'second' => 'data']) }}",
+                title: "Are you sure want to delete this data?",
                 showDenyButton: true,
-                confirmButtonText: "{{ __('custom.swal.button.yes') }}",
-                denyButtonText: "{{ __('custom.swal.button.no') }}",
+                confirmButtonText: "Yes",
+                denyButtonText: "No",
             }).then((result) => {
                 if (result.isConfirmed) {
                     @this.call('destroy', id);
-                }
-            })
-        }
-
-        function popStatus(id, stat) {
-            Swal.fire({
-                title: "{{ __('custom.swal.title.confirm', ['first' => 'update', 'second' => 'status']) }}",
-                showDenyButton: true,
-                confirmButtonText: "{{ __('custom.swal.button.yes') }}",
-                denyButtonText: "{{ __('custom.swal.button.no') }}",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    @this.call('update_status', id, stat);
                 }
             })
         }
@@ -167,7 +155,7 @@
 
     <script>
         document.addEventListener('livewire:initialized', () => {
-            var myModalEl = document.querySelector('#mdl_inventory')
+            var myModalEl = document.querySelector('#mdl_product')
             var modal = bootstrap.Modal.getOrCreateInstance(myModalEl)
 
             // Listen to dispatch from server
@@ -186,25 +174,16 @@
             @this.on('edit-mode', (res) => {
                 // modal.show();
 
-                setTimeout(() => {
-                    $('#input_posisi_kaca').trigger('change');
-                    $('#input_warna').trigger('change');
-                    $('#input_service').trigger('change');
-                }, 500);
+
             })
 
             myModalEl.addEventListener('shown.bs.modal', (event) => {
-                let is_checked = $('#is_attribute').is(':checked');
-                if (is_checked) {
-                    $('#field_attribute').prop('hidden', false);
-                } else {
-                    $('#field_attribute').prop('hidden', true);
-                }
+
             });
 
             myModalEl.addEventListener('hidden.bs.modal', (event) => {
                 @this.dispatch('reset-modal');
-                $('#field_attribute').prop('hidden', true);
+
             });
 
         });
@@ -213,7 +192,7 @@
             // console.log('livewire load code when navigated');
             // Listen to dispatch from server
 
-            var myModalEl = document.querySelector('#mdl_inventory')
+            var myModalEl = document.querySelector('#mdl_product')
             var modal = bootstrap.Modal.getOrCreateInstance(myModalEl)
 
             Livewire.on('showResult', (response) => popResult(table, response));
@@ -221,16 +200,12 @@
             Livewire.on('edit-mode', (res) => {
                 // modal.show();
 
-                setTimeout(() => {
-                    $('#input_posisi_kaca').trigger('change');
-                    $('#input_warna').trigger('change');
-                    $('#input_service').trigger('change');
-                }, 500);
+
             })
 
             myModalEl.addEventListener('hidden.bs.modal', (event) => {
                 @this.dispatch('reset-modal');
-                $('#field_attribute').prop('hidden', true);
+
             });
         });
 

@@ -27,33 +27,38 @@
                         <thead>
                             <tr>
                                 <th style="text-align: center; vertical-align: middle;">No</th>
-                                <th style="text-align: center; vertical-align: middle;">Transaction Code</th>
+                                <th style="text-align: center; vertical-align: middle;">Transaction</th>
+                                <th style="text-align: center; vertical-align: middle;">User</th>
                                 <th style="text-align: center; vertical-align: middle;">Status</th>
                                 <th style="text-align: center; vertical-align: middle;">Date</th>
                                 <th style="text-align: center; vertical-align: middle;">Total</th>
+                                <th style="text-align: center; vertical-align: middle;">Item</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($this->dataCart as $item)
                                 <tr wire:key="{{ $item->id }}">
                                     <td style="text-align: center; vertical-align: middle;">{{ $loop->iteration }}</td>
-                                    <td>
-                                        <p class="mb-0 mt-4">
-                                            {{ $item->document_code . '-' . $item->document_number }}
-                                        </p>
+
+                                    <td style="vertical-align: middle;">
+                                        {{ $item->document_code . ' - ' . $item->document_number }}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        {{ $item->user }}
                                     </td>
                                     <td style="text-align: center; vertical-align: middle;">
-                                        <p class="mb-0 mt-4">
-                                            {{ $item->status }}
-                                        </p>
+                                        {{ $item->status }}
                                     </td>
                                     <td style="text-align: center; vertical-align: middle;">
-                                        <p class="mb-0 mt-4">{{ $item->tgl_trx }}</p>
+                                        {{ Carbon\Carbon::parse($item->tgl_trx)->format('d F Y') }}
                                     </td>
-                                    <td>
-                                        <p class="mb-0 mt-4">
-                                            {{ number_format($item->total) }}
-                                        </p>
+                                    <td style="vertical-align: middle;">
+                                        Rp. {{ number_format($item->total) }},-
+                                    </td>
+                                    <td style="vertical-align: top;">
+                                        @foreach ($item->detail as $detail_item)
+                                            {{ $detail_item->product_name }} X {{ $detail_item->quantity }} <br>
+                                        @endforeach
                                     </td>
                                 </tr>
                             @endforeach
@@ -62,7 +67,6 @@
                     </table>
 
                     <button class="btn btn-primary" wire:click="printReport">Print</button>
-
                 @else
                     <div class="row g-4 align-items-center justify-content-center">
                         <div class="col-12">

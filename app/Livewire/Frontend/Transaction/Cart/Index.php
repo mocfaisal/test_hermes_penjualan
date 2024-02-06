@@ -7,6 +7,7 @@ use Livewire\Attributes\Computed;
 use App\Models\Table\transaction as tr_transaction;
 use App\Models\Table\transaction_detail as tr_transaction_detail;
 use App\Models\Table\m_product;
+use DB;
 
 class Index extends Component {
     public $id_transaction = null;
@@ -63,9 +64,9 @@ class Index extends Component {
 
     #[Computed]
     function listCart() {
-        return tr_transaction_detail::select('transaction_detail.*', 'm_product.product_name')
+        return tr_transaction_detail::select('transaction_detail.*', DB::Raw('CASE WHEN m_product.product_name IS NULL then transaction_detail.product_name ELSE m_product.product_name END as product_name_final'))
             ->where('id_transaction', $this->id_transaction)
-            ->join('m_product', 'transaction_detail.product_code', '=', 'm_product.product_code')
+            ->leftJoin('m_product', 'transaction_detail.product_code', '=', 'm_product.product_code')
             ->get();
     }
 }

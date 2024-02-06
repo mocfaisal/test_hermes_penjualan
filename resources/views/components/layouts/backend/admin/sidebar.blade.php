@@ -43,8 +43,8 @@
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item active">
-                    <a class='sidebar-link' href="#">
+                <li class="sidebar-item">
+                    <a class='sidebar-link' href="{{ route('backend.home') }}" wire:navigate>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>

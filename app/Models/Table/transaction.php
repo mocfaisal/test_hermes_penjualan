@@ -55,16 +55,16 @@ class transaction extends Model {
         return $count;
     }
 
-    static function addCart($id_product, $qty = 1) {
+    static function addCart($product_id, $qty = 1) {
         $save = false;
 
         $id_transaction = null;
         $id_user = session()->get('user_id');
         $curr_user_name = session()->get('user_fullname');
-        $id_product = $id_product;
         $qty = $qty;
 
-        $product_data = m_product::findOrFail($id_product);
+        $product_data = m_product::findOrFail($product_id);
+        $product_name = $product_data->product_name;
         $product_code = $product_data->product_code;
         $product_price = $product_data->price;
         $unit = $product_data->unit;
@@ -75,9 +75,10 @@ class transaction extends Model {
 
         $data_detail = [
             // 'id_user' => $id_user,
-            // 'id_product' => $id_product,
             // 'document_code' => $document_code,
             // 'document_number' => $document_number,
+            'product_id' => $product_id,
+            'product_name' => $product_name,
             'product_code' => $product_code,
             'price' => $product_price,
             'quantity' => $qty,

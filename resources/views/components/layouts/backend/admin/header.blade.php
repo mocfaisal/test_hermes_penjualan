@@ -21,10 +21,14 @@
         href="{{ asset('assets/backend') }}/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
     <link data-navigate-once rel="stylesheet"
         href="{{ asset('assets/backend') }}/extensions/DataTables/datatables.min.css">
+    <link data-navigate-once rel="stylesheet"
+        href="{{ asset('assets/backend') }}/extensions/sweetalert2/sweetalert2.min.css">
 
     <script src="{{ asset('assets/backend') }}/extensions/DataTables/datatables.min.js" data-navigate-once></script>
     <script src="{{ asset('assets/backend') }}/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"
         data-navigate-once></script>
+    <script src="{{ asset('assets/backend') }}/extensions/sweetalert2/sweetalert2.min.js" data-navigate-once></script>
+
 </head>
 
 <body>

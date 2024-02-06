@@ -39,7 +39,13 @@ class Index extends Component {
         // }, $filename);
 
 
-        $pdfContent = PDF::loadview('livewire.frontend.transaction.report.reportViewPDF', ['viewData' => $this->searchData()])->output();
+        $pdfContent = PDF::loadview(
+            'livewire.frontend.transaction.report.reportViewPDF',
+            [
+                'viewData' => $this->searchData(),
+                'date' => ['start' => $this->date_start, 'end' => $this->date_end]
+            ]
+        )->output();
         return response()->streamDownload(
             fn () => print($pdfContent),
             $filename
@@ -48,16 +54,24 @@ class Index extends Component {
 
     #[Computed]
     function dataCart() {
+        $new_data = null;
 
         if ($this->date_start > $this->date_end) {
             $this->date_start = $this->date_end;
         }
 
         if (!empty($this->date_start) && !empty($this->date_end)) {
-            return tr_transaction::where('id_user', $this->user_id)
-                ->where('status', 'complete')
+            $data =  tr_transaction::select('*')
+                ->where('id_user', $this->user_id)
+                // ->where('status', 'complete')
                 ->whereBetween('tgl_trx', [$this->date_start, $this->date_end])
                 ->get();
+
+            foreach ($data as $key => $val) {
+                $val->detail = tr_transaction_detail::where('id_transaction', $val->id)->get();
+                $new_data[] = $val;
+            }
+            return $new_data;
         } else {
             return false;
         }
